@@ -25,19 +25,20 @@ class LinearAutoencoder(pl.LightningModule):
         self.loss_fn = F.mse_loss
 
     def forward(self, x):
-        embedding = self.encoder(x)
-        return embedding
+        z = self.encoder(x)
+        x_hat = self.decoder(z)
+
+        loss = self.loss_fn(x_hat, x)
+        return x_hat, loss
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-
+        
         # Unravel all image dimensions into a single one. For MNIST, we
         # will go from (b, 1, 28, 28) to (b, 1*28*28).
         x = x.view(x.size(0), -1)
 
-        z = self.encoder(x)
-        x_hat = self.decoder(z)
-        loss = self.loss_fn(x_hat, x)
+        _, loss = self(x)
 
         self.log('train_loss', loss)
 
