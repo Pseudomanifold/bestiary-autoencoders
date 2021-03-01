@@ -7,6 +7,8 @@ authors = ["Bastian Rieck <bastian.rieck@bsse.ethz.ch>"]
 [tool.poetry.dependencies]
 python = ">=3.8"
 torch = "^1.7.1"
+pytorch-lightning = "^1.2.1"
+torchvision = "^0.8.2"
 
 [tool.poetry.dev-dependencies]
 
