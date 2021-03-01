@@ -30,7 +30,11 @@ class LinearAutoencoder(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-        #x = x.view(x.size(0), -1)
+
+        # Unravel all image dimensions into a single one. For MNIST, we
+        # will go from (b, 1, 28, 28) to (b, 1*28*28).
+        x = x.view(x.size(0), -1)
+
         z = self.encoder(x)
         x_hat = self.decoder(z)
         loss = self.loss_fn(x_hat, x)
