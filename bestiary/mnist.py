@@ -28,12 +28,12 @@ if __name__ == '__main__':
 
     with torch.no_grad():
         x, y = next(iter(dm.test_dataloader()))
-        z, loss = model(x.view(x.size(0), -1))
+        x_hat, z, loss = model(x.view(x.size(0), -1))
 
-        batch_size, dim = z.size()
+        batch_size, dim = x_hat.size()
         width, height = int(np.sqrt(dim)), int(np.sqrt(dim))
-        z = z.view(batch_size, 1, height, width)
+        x_hat = x_hat.view(batch_size, 1, height, width)
 
-    img = make_grid(z)
+    img = make_grid(x_hat)
     plt.imshow(np.transpose(img, (1, 2, 0)))
     plt.show()

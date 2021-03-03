@@ -29,7 +29,7 @@ class LinearAutoencoder(pl.LightningModule):
         x_hat = self.decoder(z)
 
         loss = self.loss_fn(x_hat, x)
-        return x_hat, loss
+        return x_hat, z, loss
 
     def training_step(self, batch, batch_idx):
         x, y = batch
@@ -38,7 +38,10 @@ class LinearAutoencoder(pl.LightningModule):
         # will go from (b, 1, 28, 28) to (b, 1*28*28).
         x = x.view(x.size(0), -1)
 
-        _, loss = self(x)
+        # We don't care about anything but the loss here. The other
+        # return values of the model will be more relevant for some
+        # post-processing tasks.
+        _, _, loss = self(x)
 
         self.log('train_loss', loss)
 
