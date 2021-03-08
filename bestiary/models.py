@@ -14,15 +14,10 @@ class LinearAutoencoder(pl.LightningModule):
     def __init__(self, input_dim, bottleneck_dim=2, lr=0.01):
         super().__init__()
 
-        self.encoder = nn.Sequential(
-            nn.Linear(input_dim, bottleneck_dim),
-        )
+        self.encoder = nn.Linear(input_dim, bottleneck_dim)
+        self.decoder = nn.Linear(bottleneck_dim, input_dim)
 
-        self.decoder = nn.Sequential(
-            nn.Linear(bottleneck_dim, input_dim)
-        )
-
-        self.lr = 0.01
+        self.lr = lr
         self.loss_fn = F.mse_loss
 
     def forward(self, x):
