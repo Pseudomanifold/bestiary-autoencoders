@@ -1,6 +1,7 @@
 # A Bestiary of Autoencoders
 
-This is repository illustrating some simple autoencoder architectures.
+This repository illustrates some simple autoencoder architectures. You
+might want to [check out the slides](https://bastian.rieck.me/talks/A_Bestiary_of_Autoencoders.pdf).
 To run the example, follow these steps:
 
 1. Install [poetry](https://python-poetry.org), a framework for
